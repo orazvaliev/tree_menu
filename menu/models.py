@@ -10,7 +10,7 @@ class Menu(models.Model):
         return self.menu_name
 
     def get_menu_tree(self):
-        objects = self.objects.get(menu_name=self.menu_name).items.all()
+        objects = Menu.objects.get(menu_name=self.menu_name).items.all()
         print(objects)
 
 
