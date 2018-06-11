@@ -1,0 +1,6 @@
+<ul>
+    <li><a class="menu-item" href="{% url 'menu:index' %}">Home</a></li>
+    {% for item in items_tree %}
+        <li><a class="menu-item" href="{{ item.absolute_url }}">{{ item }}</a></li>
+    {% endfor %}
+</ul>

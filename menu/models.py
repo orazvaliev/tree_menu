@@ -25,8 +25,7 @@ class MenuItem(models.Model):
                                related_name='children',
                                on_delete=models.CASCADE)
     position = models.IntegerField(blank=True,
-                                   null=True,
-                                   primary_key=True)
+                                   null=True)
     level = models.IntegerField(blank=True,
                                 null=True)
     title = models.CharField(max_length=25,
@@ -47,17 +46,17 @@ class MenuItem(models.Model):
         super().save(*args, **kwargs)
         self.set_mptt()
 
-    def get_absolute_url(self):
-        return reverse('menu', kwargs={'slug': self.slug})
 
     def set_mptt(self, left=1, parent=None, level=1):
         for i in type(self).objects.filter(parent=parent).order_by('position'):
             obj = i
             children_count = 0
+
             while obj.children.exists():
                 for child in obj.children.all():
                     children_count += 1
                     obj = child
+
             data = {
                 'level': level,
                 'left': left,
